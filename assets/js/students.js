@@ -140,3 +140,7 @@ const students = [
     photo: "https://randomuser.me/api/portraits/women/20.jpg"
   }
 ];
+
+for (const student of students){
+  console.log(`Öğrenci Adı : ${student.firstName} Öğrenci Soyadı : ${student.lastName} Öğrenci Yaşı : ${student.age} Öğrenci Cinyeti : ${student.gender} Öğrenci Fotoğrafı : ${student.photo}`);
+}
