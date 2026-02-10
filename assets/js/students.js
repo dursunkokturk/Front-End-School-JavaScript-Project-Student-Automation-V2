@@ -171,6 +171,15 @@ function studentAdd(){
   }
   
   students.push(newStudent);
+
+  addstudentInformations.innerHTML += `
+  <tr>
+    <td>${newStudent.firstName}</td>
+    <td>${newStudent.lastName}</td>
+    <td>${newStudent.age}</td>
+    <td>${newStudent.gender}</td>
+    <td>${newStudent.photo}</td>
+  </tr>`;
   
   console.log(`Eklenen Öğrencinin Adı : ${newStudent.firstName} Eklenen Öğrencinin Soyadı : ${newStudent.lastName} Eklenen Öğrencinin Yaşı : ${newStudent.age} Eklenen Öğrencinin Cinsiyeti : ${newStudent.gender} Eklenen Öğrencinin Fotoğrafı : ${newStudent.photo}`);
 }
