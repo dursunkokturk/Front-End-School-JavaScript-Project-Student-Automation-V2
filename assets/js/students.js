@@ -1,4 +1,4 @@
-const students = [
+const initialStudents = [
   {
     firstName: "Ahmet",
     lastName: "Yılmaz",
@@ -141,9 +141,48 @@ const students = [
   }
 ];
 
+// localStorage'da Ogrenci Data'si Varsa Aliyoruz
+let students = loadStudents();
+
+// Sayfa Acildiginda Students Array Icindeki Ogrencileri listeleliyoruz
+window.onload = function() {
+  studentsList();
+};
+
+// localStorage'a Girilen Ogrenci Data'larini HTML Dosyasinda Listeliyoruz
+function loadStudents() {
+
+  /* getItem Methodu Ile 
+    localStorage'da Bulunan Data'yi Aliyoruz*/
+  const storedStudents = localStorage.getItem('students');
+  if (storedStudents) {
+    return JSON.parse(storedStudents);
+  } else {
+
+    /* saveStudents Fonksiyonu Icinde Yapilan Islem Sonucunu Kullanarak
+      Sayfa Ilk Acildiginda Yer Alan Data'lari Kaydediyoruz */
+    saveStudents(initialStudents);
+    return initialStudents;
+  }
+}
+
+/* Kullanicidan Alinan Ogrenci Data'sinin 
+  localStorage'a Eklenmesi Icin JSON Formatina Ceviriyoruz */
+function saveStudents(studentsArray) {
+
+  /* Kullanicidan Alinan Data'yi localStorage'a Kaydederken
+    setItem Methodu Ile key value Yapisini Kullaniyoruz */
+  localStorage.setItem('students', JSON.stringify(studentsArray));
+}
+
+/* Ogrenci Ekleme Butonuna Tiklandiktan Sonra
+Girilen Bilgileri Mevcut Bilgilerle Birlestirip Yazdiriyoruz */
 function studentsList(){
+  
+  addstudentInformations.innerHTML = "";
+
   for (const student of students){
-    studentInformations.innerHTML += `
+    addstudentInformations.innerHTML += `
       <tr>
         <td>${student.firstName}</td>
         <td>${student.lastName}</td>
@@ -155,10 +194,11 @@ function studentsList(){
   }
 }
 
+/* Ekleme Fonksiyonunu HTML Dosyasinda Bulunan Buton Uzerinden Cagiriyoruz */
 function studentAdd(){
   let newStudentFirstName = prompt("Eklenecek Öğrencinin Adını Giriniz");
   let newStudentLastName = prompt("Eklenecek Öğrencinin Soydını Giriniz");
-  let newStudentAge = prompt("Eklenecek Öğrencinin Yaşını Giriniz");
+  let newStudentAge = Number(prompt("Eklenecek Öğrencinin Yaşını Giriniz"));
   let newStudentGender = prompt("Eklenecek Öğrencinin Cinsiyetini Giriniz");
   let newStudentPhoto = prompt("Eklenecek Öğrencinin Fotoğrafını Giriniz");
 
@@ -172,6 +212,13 @@ function studentAdd(){
   
   students.push(newStudent);
 
+  /* Kullancidan Alinan Ogrenci Data'sinin 
+    key value Yapisinda Bulunan Halini
+    localStorage'a Kaydediyoruz */
+  saveStudents(students);
+
+  studentsList();
+
   addstudentInformations.innerHTML += `
   <tr>
     <td>${newStudent.firstName}</td>
@@ -183,7 +230,3 @@ function studentAdd(){
   
   console.log(`Eklenen Öğrencinin Adı : ${newStudent.firstName} Eklenen Öğrencinin Soyadı : ${newStudent.lastName} Eklenen Öğrencinin Yaşı : ${newStudent.age} Eklenen Öğrencinin Cinsiyeti : ${newStudent.gender} Eklenen Öğrencinin Fotoğrafı : ${newStudent.photo}`);
 }
-
-studentsList();
-studentAdd();
-studentsList();
