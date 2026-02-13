@@ -141,7 +141,7 @@ const initialStudents = [
   }
 ];
 
-// Öğrenci dizisini başlangıç verisiyle oluşturuyoruz
+// Ogrenci Array'ini Baslangic Data'siyla Olusturuyoruz
 let students = [...initialStudents];
 
 // Sayfa Acildiginda Students Array Icindeki Ogrencileri listeleliyoruz
